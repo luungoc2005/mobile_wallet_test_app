@@ -53,14 +53,8 @@ Users can use `POST http://localhost:8000/accounts/` to create a new account
 ```
 
 Users can use `GET http://localhost:8000/accounts/` to see individual account balances
-```json
-{
-  "username": "<username here>",
-  "password": "<password here>"
-}
-```
 
-Additionally staff users can see `GET http://localhost:8000/users/` which offers a quick overview of user total balances (a quick sum without accounting for currencies)
+Additionally staff users can see `GET http://localhost:8000/users/` which offers a quick overview of user total balances (a quick sum without accounting for currencies). This will be hidden to normal users
 
 C. __User should be able to send money to other users.__
 

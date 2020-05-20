@@ -28,10 +28,13 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     def create(self, validated_data):
-        validated_data.pop('balance')
-        return super(AccountSerializer, self).create({**validated_data, \
-            owner=self.context["request"].user
+        user = self.context["request"].user
+        if not user.is_staff:
+            validated_data.pop('balance')
+        validated_data.update({
+            'owner': user
         })
+        return super(AccountSerializer, self).create(validated_data)
 
     def update(self, instance, validated_data):
         currency = validated_data.get('currency')
@@ -45,6 +48,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     ordering = ['-created_at']
     http_method_names = ['get', 'post', 'put']
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdmin]
 
     def get_serializer_context(self):
         context = super(AccountViewSet, self).get_serializer_context()
@@ -52,9 +56,9 @@ class AccountViewSet(viewsets.ModelViewSet):
         return context
 
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method in ['GET', 'POST']:
             return [permissions.IsAuthenticated(), IsOwnerOrAdmin()]
-        elif self.request.method in ['POST', 'PUT']:
+        elif self.request.method in ['PUT']:
             return [permissions.IsAuthenticated(), permissions.IsAdminUser()]
         else:
             return [permissions.IsAuthenticated(), IsOwnerOrAdmin()]
