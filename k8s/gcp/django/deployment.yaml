@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: django
-          image: asia.gcr.io/wallet-test-app-277804/wallet-test-app:v7
+          image: asia.gcr.io/wallet-test-app-277804/wallet-test-app:v11
           ports:
             - containerPort: 8000
           env:
@@ -35,5 +35,19 @@ spec:
             - name: POSTGRES_HOST
               value: postgres-service
 
-            - name: REDIS_HOST
-              value: redis-service
+            - name: GCP_REPORT_BUCKET_ID
+              value: mobile_wallet_test_reports
+
+          volumeMounts:
+            - name: "service-account"
+              mountPath: "/var/run/secret/cloud.google.com"
+            - name: "certs"
+              mountPath: "/etc/ssl/certs"
+
+      volumes:
+        - name: "service-account"
+          secret:
+            secretName: "sa-key"
+        - name: "certs"
+          hostPath:
+            path: "/etc/ssl/certs"
