@@ -8,4 +8,5 @@ WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
 RUN python manage.py crontab add
+RUN python manage.py collectstatic
 CMD python manage.py runserver 0.0.0.0:8000

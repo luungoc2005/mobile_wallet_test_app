@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l6fc1s8kb&wrrzwm7&*bmmu+!ywn+_15b_bq0tuvrv!dlq#xz!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -78,12 +78,15 @@ WSGI_APPLICATION = 'mobile_wallet_test.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 if DEBUG == True:
-    from dotenv import load_dotenv
-    load_dotenv(
-        dotenv_path=os.path.join(BASE_DIR, '.env'), 
-        verbose=True
-    )
-    print(os.getenv('POSTGRES_USER'))
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(
+            dotenv_path=os.path.join(BASE_DIR, '.env'), 
+            verbose=True
+        )
+        print(os.getenv('POSTGRES_USER'))
+    except:
+        pass
 
 DATABASES = {
     'default': {
@@ -136,6 +139,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
