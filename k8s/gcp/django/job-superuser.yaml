@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: django
-          image: asia.gcr.io/wallet-test-app-277804/wallet-test-app:v5
+          image: asia.gcr.io/wallet-test-app-277804/wallet-test-app:v6
           command: ['python', 'manage.py', 'createsuperuser', '--noinput']
           env:
             - name: DJANGO_SUPERUSER_USERNAME

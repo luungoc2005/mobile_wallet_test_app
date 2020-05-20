@@ -84,7 +84,7 @@ DATABASES = {
     } \
     if DEBUG == True \
     else {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mobile_wallet_test_app',
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
