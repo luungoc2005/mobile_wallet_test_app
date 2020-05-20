@@ -77,13 +77,21 @@ WSGI_APPLICATION = 'mobile_wallet_test.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+if DEBUG == True:
+    from dotenv import load_dotenv
+    load_dotenv(
+        dotenv_path=os.path.join(BASE_DIR, '.env'), 
+        verbose=True
+    )
+    print(os.getenv('POSTGRES_USER'))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    } \
-    if DEBUG == True \
-    else {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # } \
+    # if DEBUG == True \
+    # else {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mobile_wallet_test_app',
         'USER': os.getenv('POSTGRES_USER'),
