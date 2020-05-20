@@ -99,3 +99,4 @@ H. __You have the luxury of adding one killer feature in your app, to impress th
 3. TODO:
 - Use Celery, deployed on a separate service instead of crontab for reporting cron job
 - Real support for currencies
+- Use gunnicorn instead of `manage.py runserver`
