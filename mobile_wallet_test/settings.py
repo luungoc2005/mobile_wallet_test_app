@@ -25,7 +25,7 @@ SECRET_KEY = 'l6fc1s8kb&wrrzwm7&*bmmu+!ywn+_15b_bq0tuvrv!dlq#xz!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,11 +78,12 @@ WSGI_APPLICATION = 'mobile_wallet_test.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    } \
+    if DEBUG == True \
+    else {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mobile_wallet_test_app',
         'USER': os.getenv('POSTGRES_USER'),
@@ -91,8 +92,6 @@ DATABASES = {
         'PORT': os.getenv('POSTGRES_PORT', 5432),
     }
 }
-
-ALLOWED_HOSTS = []
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

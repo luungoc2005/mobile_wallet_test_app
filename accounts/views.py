@@ -46,11 +46,11 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method == 'GET':
-            return [IsOwnerOrAdmin()]
+            return [permissions.IsAuthenticated(), IsOwnerOrAdmin()]
         elif self.request.method in ['POST', 'PUT']:
-            return [permissions.IsAdminUser()]
+            return [permissions.IsAuthenticated(), permissions.IsAdminUser()]
         else:
-            return [IsOwnerOrAdmin()]
+            return [permissions.IsAuthenticated(), IsOwnerOrAdmin()]
 
     def get_queryset(self):
         return Account.objects.filter(owner=self.request.user) \
