@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: django
-          image: 
+          image: asia.gcr.io/wallet-test-app-277804/wallet-test-app:v1
           command: ['python', 'manage.py', 'migrate']
           env:
             - name: POSTGRES_USER

@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: django
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: django
-          image: 
+          image: luungoc2005/mobile-wallet-test
           ports:
             - containerPort: 8000
           env:
