@@ -26,10 +26,12 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             'created_at': {'read_only': True},
         }
-    
+
     def create(self, validated_data):
         validated_data.pop('balance')
-        return super(AccountSerializer, self).create(validated_data)
+        return super(AccountSerializer, self).create({**validated_data, \
+            owner=self.context["request"].user
+        })
 
     def update(self, instance, validated_data):
         currency = validated_data.get('currency')
@@ -43,6 +45,11 @@ class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     ordering = ['-created_at']
     http_method_names = ['get', 'post', 'put']
+
+    def get_serializer_context(self):
+        context = super(AccountViewSet, self).get_serializer_context()
+        context.update({"request": self.request})
+        return context
 
     def get_permissions(self):
         if self.request.method == 'GET':

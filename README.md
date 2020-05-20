@@ -14,6 +14,11 @@ Prerequisites: Docker, minikube (microk8s), kubectl installed
 
 2. Description
 
+Demo site & API browser: [here](http://34.87.53.56)
+
+Login for admin user: `admin` - `test1234`
+Login for normal user: `test_user` - `test1234`
+
 Following the requirements:
 
 - __User access the service through an HTTP based API, with authentication.__
@@ -39,7 +44,15 @@ To register a normal user use `POST http://localhost:8000/users`
 
 B. __User should be able to retrieve their balance.__
 
-Users can use `POST http://localhost:8000/accounts/` to see individual account balances
+Users can use `POST http://localhost:8000/accounts/` to create a new account
+```json
+{
+  "currency": "SGD",
+  "balance": 0
+}
+```
+
+Users can use `GET http://localhost:8000/accounts/` to see individual account balances
 ```json
 {
   "username": "<username here>",
