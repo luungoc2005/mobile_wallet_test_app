@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-superuser
+spec:
+  template:
+    spec:
+      containers:
+        - name: django
+          image: asia.gcr.io/wallet-test-app-277804/wallet-test-app:v4
+          command: ['python', 'manage.py', 'createsuperuser', '--noinput']
+          env:
+            - name: DJANGO_SUPERUSER_USERNAME
+              value: admin
+
+            - name: DJANGO_SUPERUSER_PASSWORD
+              value: test1234
+
+            - name: DJANGO_SUPERUSER_EMAIL
+              value: test@test.com
+      restartPolicy: Never
+  backoffLimit: 5

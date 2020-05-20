@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postgres-container
-          image: postgres:9.6.6
+          image: postgres:10.4
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -30,13 +30,14 @@ spec:
                   key: password
 
             - name: POSTGRES_DB
-              value: kubernetes_django
+              value: mobile_wallet_test_app
 
           ports:
             - containerPort: 5432
           volumeMounts:
             - name: postgres-volume-mount
               mountPath: /var/lib/postgresql/data
+              subPath: postgres
 
       volumes:
         - name: postgres-volume-mount
